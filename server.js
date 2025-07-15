@@ -9,6 +9,7 @@ const SECRET_KEY = '1234';
 const LOCAL_PC_URL = 'https://abc123.ngrok.io';
 
 
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
