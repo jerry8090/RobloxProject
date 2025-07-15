@@ -1,16 +1,14 @@
 const express = require('express');
 const path = require('path');
-console.log("Using URL:", LOCAL_PC_URL);
-const axios = require('axios'); // You'll need this
-const app = express();
+const axios = require('axios');
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 const SECRET_KEY = '1234';
 const LOCAL_PC_URL = 'https://40f127a3c9a8.ngrok-free.app';
 
-
-
+console.log("✅ Using LOCAL_PC_URL:", LOCAL_PC_URL);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -18,7 +16,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'control.html'));
 });
 
-// Forward command to your PC listener
 app.get('/kill', async (req, res) => {
   if (req.query.key !== SECRET_KEY) return res.status(403).send('❌ Invalid key');
   try {
