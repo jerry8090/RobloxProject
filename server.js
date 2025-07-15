@@ -6,7 +6,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 const SECRET_KEY = '1234';
-const LOCAL_PC_URL = 'http://<192.168.100.22>:6970'; // ← Replace with your PC's local IP
+const LOCAL_PC_URL = 'https://abc123.ngrok.io';
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
