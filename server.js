@@ -6,7 +6,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 const SECRET_KEY = '1234';
-const LOCAL_PC_URL = 'https://abc123.ngrok.io';
+const LOCAL_PC_URL = 'https://40f127a3c9a8.ngrok-free.app';
+
 
 
 
