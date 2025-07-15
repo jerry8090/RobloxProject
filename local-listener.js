@@ -43,8 +43,17 @@ setInterval(updateRobloxStatus, 1000);
 
 // ⏱ Session API
 app.get('/session', (req, res) => {
-  res.send(currentDuration);
+  if (!startTime) {
+    return res.send("Not running");
+  }
+
+  const now = new Date();
+  const elapsed = now - startTime;
+  const mins = Math.floor(elapsed / 60000);
+  const secs = Math.floor((elapsed % 60000) / 1000);
+  res.send(`${mins}m ${secs}s`);
 });
+
 
 // 🟢 Status API
 app.get('/status', (req, res) => {
