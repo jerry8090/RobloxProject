@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Remote Kill Panel</title>
+  <style>
+    body {
+      background-color: white;
+      color: #00ff88;
+      font-family: Times New Roman;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    button {
+      background-color: #444;
+      border: none;
+      color: black;
+      padding: 16px 32px;
+      font-size: 20px;
+      border-radius: 10px;
+      margin: 10px;
+      cursor: pointer;
+      width: 250px;
+    }
+
+    button#kill { background-color: red; }
+    button#freeze { background-color: #00bfff; }
+    button#restart { background-color: #ffaa00; }
+
+    #status, #sessionTimer {
+      font-size: 18px;
+      margin-top: 20px;
+      color: #00ff88;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <button id="kill">🗡️ Kill</button>
+  <button id="freeze">🧊 Freeze</button>
+  <button id="restart">🔁 Restart</button>
+
+  <div id="status">Checking status...</div>
+  <div id="sessionTimer">🕒 Session Time: Loading...</div>
+
+  <script>
+    const SECRET_KEY = '1234';
+
+    const status = document.getElementById('status');
+    const sessionTimer = document.getElementById('sessionTimer');
+    const killBtn = document.getElementById('kill');
+    const freezeBtn = document.getElementById('freeze');
+    const restartBtn = document.getElementById('restart');
+
+    function sendCommand(route) {
+      fetch(`${route}?key=${SECRET_KEY}`)
+        .then(res => res.text())
+        .then(txt => {
+          status.textContent = txt;
+        })
+        .catch(() => {
+          status.textContent = '❌ Failed to connect';
+        });
+    }
+
+    killBtn.addEventListener('click', () => sendCommand('/kill'));
+    freezeBtn.addEventListener('click', () => sendCommand('/toggle-freeze'));
+    restartBtn.addEventListener('click', () => sendCommand('/restart'));
+
+    function checkStatus() {
+      fetch('/status')
+        .then(res => res.json())
+        .then(data => {
+          status.textContent = data.running ? '🟢 Roblox is running' : '⚫ Roblox is not running';
+          freezeBtn.textContent = data.frozen ? '▶️ Unfreeze Roblox' : '🧊 Freeze';
+        });
+    }
+
+    function updateSessionTime() {
+      fetch('/session')
+        .then(res => res.text())
+        .then(txt => {
+          sessionTimer.textContent = `🕒 Session Time: ${txt}`;
+        });
+    }
+
+    // Periodic updates
+    setInterval(checkStatus, 5000);
+    setInterval(updateSessionTime, 1000);
+
+    // Initial load
+    checkStatus();
+    updateSessionTime();
+  </script>
+</body>
+</html>
