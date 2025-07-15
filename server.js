@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+console.log("Using URL:", LOCAL_PC_URL);
 const axios = require('axios'); // You'll need this
 const app = express();
 
