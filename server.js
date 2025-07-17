@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 const SECRET_KEY = '1234';
-const LOCAL_PC_URL = ' https://rush-ctrl-denver-ordinance.trycloudflare.com';
+const LOCAL_PC_URL = 'https://ventures-decision-nepal-fame.trycloudflare.com';
 
 
 console.log("✅ Using LOCAL_PC_URL:", LOCAL_PC_URL);
